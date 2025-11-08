@@ -22,8 +22,16 @@ jobs:
       - name: Install browsers (Chromium + Firefox)
         run: npx playwright install --with-deps chromium firefox
 
-      - name: Run Playwright tests
-        run: npm test
+      - name: Install Xvfb (for headed browser support on runners)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y xvfb
+
+      - name: Run Playwright tests (headed under Xvfb)
+        env:
+          # Force headed mode in Playwright config when this is set to 'false'
+          PLAYWRIGHT_HEADLESS: 'false'
+        run: xvfb-run --auto-servernum --server-args='-screen 0 1920x1080x24' npm test
 
       - name: Upload Playwright artifacts (on failure)
         if: failure()
