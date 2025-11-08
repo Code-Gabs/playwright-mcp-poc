@@ -16,7 +16,8 @@ export default defineConfig({
   testDir: 'tests',
   timeout: 5000, // max time per test (ms)
   expect: { timeout: 5000 },
-  reporter: [['list'], ['html']],
+  // Reporters: keep console list, HTML report, and JUnit XML for CI artifacts
+  reporter: [['list'], ['html'], ['junit', { outputFile: 'test-results/junit-results.xml' }]],
   use: {
     // Base URL for relative `page.goto()` calls in tests
     baseURL: 'https://apidetarefas.docs.apiary.io',
