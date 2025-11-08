@@ -8,7 +8,9 @@ export default defineConfig({
   use: {
     // Base URL for relative `page.goto()` calls in tests
     baseURL: 'https://apidetarefas.docs.apiary.io',
-    headless: false,
+  // Run headed locally by default, but run headless in CI (CI env var is set on GitHub Actions)
+  // Use globalThis to avoid TypeScript "Cannot find name 'process'" in some setups
+  headless: !!(globalThis as any).process?.env?.CI,
     actionTimeout: 5000,
     navigationTimeout: 5000,
     ignoreHTTPSErrors: true,
