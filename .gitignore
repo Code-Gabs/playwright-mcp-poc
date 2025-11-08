@@ -1,0 +1,10 @@
+node_modules/
+playwright-report/
+test-results/
+screenshots/
+.DS_Store
+.vscode/
+.idea/
+/*.log
+npm-debug.log*
+package-lock.json
